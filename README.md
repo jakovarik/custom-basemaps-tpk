@@ -1,21 +1,10 @@
 # custom-basemaps-tpk
-A Python tool to create customized basemaps (tile packages) based on an input feature class for mobile application (such as Collector for ArcGIS) consumption.
- 
-This tool was specifically designed to assist with an organizational workflow of generating customized tile package basemaps for use in Collector for ArcGIS. Individual output basemap(s) are generated based on the geography and attributes of an input feature class's feature(s). Basemaps can be "side-loaded" onto mobile devices following Esri documentation (http://blogs.esri.com/esri/arcgis/2014/03/23/using-your-own-basemap-layers-with-collector-for-arcgis/).
-In-tool help has been developed for your convenience.
-
-
 Summary:
 
-Generates tile packages based on a custom input feature class, for use in Collector for ArcGIS and other mobile environments.
-
-This tool was specifically developed to generate custom basemaps for use in Collector for ArcGIS and other mobile applications. It creates a series of custom tile packages, based on the contents of the MXD you're running the tool from. A tile package is generated for each feature within the input feature class. Each output tile package is named based on a field you sepcify from the input feature class.
-
-Requirements: a file-based basemap (no wms, or service based imagery or basemap layers) and an input feature class. 
-
-Please follow the instructions below for use.
-
-
+A Python tool to create customized basemaps (tile packages) based on an input feature class for mobile application (such as Collector for ArcGIS) consumption.
+ 
+This tool was specifically designed to assist with an organizational workflow of generating customized tile package basemaps for use in Collector for ArcGIS. Individual output basemap(s) are generated based on the geography and attributes of input feature(s). This tool's output tile packages can be "side-loaded" onto mobile devices following Esri documentation (http://blogs.esri.com/esri/arcgis/2014/03/23/using-your-own-basemap-layers-with-collector-for-arcgis/).
+In-tool help has been developed for your convenience.
 
 
 Requirements: 
