@@ -22,10 +22,12 @@ fc_path = arcpy.GetParameterAsText(0)
 field_name = arcpy.GetParameterAsText(1)
 workspace = arcpy.GetParameterAsText(2)
 buffer = arcpy.GetParameterAsText(3)
+lod = arcpy.GetParameterAsText(4)
 
 bufferOutput = workspace + "/buffer.shp"
 arcpy.env.addOutputsToMap = False
 mxd = arcpy.mapping.MapDocument("CURRENT")  #r'c:\temp\test.mxd")
+
 
 # Set environment settings to local drive - overwrite existing
 env.overwriteOutput = True
@@ -43,6 +45,22 @@ addLayer = arcpy.mapping.Layer(bufferOutput)
 arcpy.mapping.AddLayer(df, addLayer, "BOTTOM")
 arcpy.AddMessage("Added the buffered features to your current map document. (Under the imagery)")
 arcpy.AddMessage("*****************************************")
+
+#determine level of detail (lod) chosen from input parameters
+###############
+lodlookup={
+"1:1,128": "20",
+"1:2,257": "19",
+"1:4,514": "18",
+"1:9,027": "17",
+"1:18,056": "16",
+"1:36,112": "15",
+"1:72,223": "14",
+"1:288,895": "13",
+"1:577,791": "12"}
+
+lod = lodlookup[lod]
+
 # Open MXD and Get the Data Frame
 
 for df in arcpy.mapping.ListDataFrames(mxd):
@@ -65,7 +83,7 @@ with arcpy.da.SearchCursor(bufferOutput, ["shape@", field_name]) as rows:
         arcpy.AddMessage("Generating tile packages. This may take a while...")
         arcpy.AddMessage("*****************************************")
         mxd.saveACopy(workspace + "/" + tpkName + ".mxd")
-        arcpy.CreateMapTilePackage_management(workspace + "/" + tpkName + ".mxd", "ONLINE", workspace + "/" + tpkName + '.tpk', "MIXED", "20")
+        arcpy.CreateMapTilePackage_management(workspace + "/" + tpkName + ".mxd", "ONLINE", workspace + "/" + tpkName + '.tpk', "MIXED", lod)
 
 if arcpy.Exists(bufferOutput):
     arcpy.Delete_management(bufferOutput)
