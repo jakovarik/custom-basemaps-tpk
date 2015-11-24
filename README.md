@@ -7,7 +7,7 @@ This tool was specifically designed to assist with an organizational workflow of
 In-tool help has been developed for your convenience.
 
 
-Requirements: 
+###Requirements: 
 
 Run the tool from an MXD that contains file-based data only (no web services).
 
@@ -15,7 +15,7 @@ The MXD must have a description and tags in order for the tool to execute. To ad
 
 
 
-Steps for Using This Tool Properly:
+###Steps for Using This Tool Properly:
 
 1. If you haven't done so already, fill out your MXD's Map Document Properties, or tool won't run.
 2. For Input Feature Class, navigate to the feature class you want to create individual tile packages for (this feature class can also be present in your MXD). 
@@ -28,7 +28,7 @@ Steps for Using This Tool Properly:
 
 
 
-Suggestions:
+###Suggestions:
 
 *Your input feature class should include a field that will be used to name your output tile packages. 
 *The tile packages will be generated from the cartographic elements in your active MXD. If you have reference data or your input feature class on top of a basemap, these feature classes will appear in the output tile package. If you're looking to generate a basemap only (i.e. imagery, topo map, etc.), be sure to remove the additional feature classes from your MXD before running this tool. 
@@ -36,6 +36,6 @@ Suggestions:
 
 
 
-Use limitations
+###Use limitations
 This script has been developed and tested in ArcGIS 10.2.2.
 
