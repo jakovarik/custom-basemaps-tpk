@@ -33,11 +33,15 @@ mxd = arcpy.mapping.MapDocument("CURRENT")  #r'c:\temp\test.mxd")
 env.overwriteOutput = True
 #mxdLoc = arcpy.mapping.MapDocument("CURRENT")
 
-
+try:
 #buffer input fc
-arcpy.Buffer_analysis(fc_path, bufferOutput, buffer, "FULL", "ROUND")
-arcpy.AddMessage("Completed buffering the input feature class.")
-arcpy.AddMessage("*****************************************")
+    arcpy.Buffer_analysis(fc_path, bufferOutput, buffer, "FULL", "ROUND")
+    arcpy.AddMessage("Completed buffering the input feature class.")
+    arcpy.AddMessage("*****************************************")
+except Exception as e:
+    arcpy.AddMessage(e)
+    arcpy.AddMessage("There was a problem with your buffer!")
+
 
 #add buffered input layer to mxd
 df = arcpy.mapping.ListDataFrames(mxd)[0]
@@ -71,19 +75,22 @@ with arcpy.da.SearchCursor(bufferOutput, ["shape@", field_name]) as rows:
         geom = row[0]
         df.extent = geom.extent
 
+
         tpkName = row[1]
         if os.path.isfile(env.workspace + "/" + tpkName + '.tpk'):
             print "Skipping: " + workspace + "/" + tpkName + '.tpk'
             arcpy.AddMessage("Skipping: " + workspace + "/" + tpkName + ".tpk")
             continue
-
         print "Saving: " + workspace + "/" + tpkName + ".mxd"
         arcpy.AddMessage("Saving: " + workspace + "/" + tpkName + ".mxd")
         arcpy.AddMessage("*****************************************")
         arcpy.AddMessage("Generating tile packages. This may take a while...")
         arcpy.AddMessage("*****************************************")
-        mxd.saveACopy(workspace + "/" + tpkName + ".mxd")
-        arcpy.CreateMapTilePackage_management(workspace + "/" + tpkName + ".mxd", "ONLINE", workspace + "/" + tpkName + '.tpk', "MIXED", lod)
-
+        try:
+            mxd.saveACopy(workspace + "/" + tpkName + ".mxd")
+            arcpy.CreateMapTilePackage_management(workspace + "/" + tpkName + ".mxd", "ONLINE", workspace + "/" + tpkName + '.tpk', "MIXED", lod)
+        except Exception as e:
+            arcpy.AddMessage(e)
+            arcpy.AddMessage("There's a problem with the output.")
 if arcpy.Exists(bufferOutput):
     arcpy.Delete_management(bufferOutput)
