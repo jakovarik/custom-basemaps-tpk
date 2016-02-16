@@ -39,3 +39,7 @@ The MXD must have a description and tags in order for the tool to execute. To ad
 ###Use limitations
 This script has been developed and tested in ArcGIS 10.2.2.
 
+###To do list....
+Changes on the docket include:
+*Buffer polygon shp will be removed from map before TPK is generated
+*Make the buffer optional (zoom to feature and generate TPK at that scale)
